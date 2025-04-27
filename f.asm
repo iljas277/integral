@@ -18,13 +18,13 @@ f3:
     finit
     fld1
     fld1
-    fadd
+    faddp
     fld1
-    fadd
+    faddp
     fld qword[ebp + 8]
     fchs
     fld1
-    fadd
+    faddp
     fdiv st1
     leave
     ret
@@ -36,14 +36,18 @@ f1:
     mov ebp, esp
     finit
     fld qword [ebp + 8] 
-    fld1                  
-    fld st1               
-    f2xm1                
+    fld qword[ebp + 8]
+    frndint
+    fsubp st1              
+    f2xm1  
+    fld1              
     fadd st0, st1        
-    fstp st1              
-    fld1                  
-    faddp st1, st0        
-   
+    fld qword[ebp + 8]
+    fxch st1
+    fscale  
+    fld1             
+    faddp st1, st0       
+    mov esp, ebp
     pop ebp
     ret
 global der_f2
@@ -84,20 +88,25 @@ der_f3:
     fld1
     faddp
     fld1
-    fchs
     fdiv st1
+    fchs
     leave 
     ret
 global der_f1
 der_f1:
     push ebp
     mov ebp, esp
-    fld qword [ebp + 8]  
-    fld1                 
-    fld st1              
-    f2xm1                
+    finit
+    fld qword [ebp + 8] 
+    fld qword[ebp + 8]
+    frndint
+    fsubp st1              
+    f2xm1  
+    fld1              
     fadd st0, st1        
-    fstp st1             
+    fld qword[ebp + 8]
+    fxch st1
+    fscale                
 
     fldln2               
     fmulp st1, st0       

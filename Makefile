@@ -1,15 +1,25 @@
-all: main
+CC = gcc
+CFLAGS = -m32 -std=c99 -Wall -Wextra -g
+LDFLAGS = -m32 -lm
+NASM = nasm
+NASMFLAGS = -f elf32
 
-main: f.o main.o root.o integral.o
-	gcc -m32 -o main main.o f.o
-main.o: main.c
-	gcc -m32 -o main.o -c -std=c99 main.c
+SRC = main.c root.c integral.c search_root_interval.c
+OBJ = $(SRC:.c=.o) f.o
+TARGET = main
+
+.PHONY: all clean
+
+all: $(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 f.o: f.asm
-	nasm -f elf32 -o f.o f.asm
-root.o: root.c 
-	gcc -m32 -o root.o -c  -std=c99 root.c
-integral.o: integral.c
-	gcc -m32 -o integral.o -c -std=c99 integral.c
+	$(NASM) $(NASMFLAGS) $< -o $@
+
 clean:
-	rm *.o
-	rm main
+	rm -f $(OBJ) $(TARGET)
