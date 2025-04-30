@@ -1,3 +1,6 @@
+section .data
+    three dq 3.0
+    five dq 5.0
 section .text
 global f2
 f2:
@@ -5,10 +8,10 @@ f2:
     mov ebp, esp
     finit
     fld qword[ebp + 8]  
-    mov ecx, 4
-.cycle:
-    fmul qword[ebp + 8] 
-    loop .cycle
+    fmul qword[ebp + 8]
+    fld st0
+    fmulp st1
+    fmul qword[ebp + 8]
     leave
     ret   
 global f3
@@ -16,11 +19,7 @@ f3:
     push ebp
     mov ebp, esp
     finit
-    fld1
-    fld1
-    faddp
-    fld1
-    faddp
+    fld qword[three]
     fld qword[ebp + 8]
     fchs
     fld1
@@ -28,7 +27,6 @@ f3:
     fdiv st1
     leave
     ret
-
 
 global f1
 f1:
@@ -55,26 +53,11 @@ der_f2:
     push ebp
     mov ebp, esp
     finit
-    fld1
-    xor ecx, ecx
-    .c1:
-        cmp ecx, 4
-        je .e1
-        fld1
-        faddp
-        inc ecx
-        jmp .c1
-    .e1:
     fld qword[ebp + 8]
-    xor ecx, ecx
-    .c2:
-        cmp ecx, 3
-        je .e2
-        fmul qword[ebp + 8]
-        inc ecx
-        jmp .c2
-    .e2:
-    fmul st1
+    fmul qword[ebp + 8]
+    fld st0
+    fmulp st1
+    fmul qword[five]
     leave
     ret
 global der_f3
@@ -83,12 +66,7 @@ der_f3:
     mov ebp, esp
     finit
     fld1
-    fld1
-    faddp
-    fld1
-    faddp
-    fld1
-    fdiv st1
+    fdiv qword[three]
     fchs
     leave 
     ret
@@ -107,7 +85,6 @@ der_f1:
     fld qword[ebp + 8]
     fxch st1
     fscale                
-
     fldln2               
     fmulp st1, st0       
     leave
