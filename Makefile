@@ -4,7 +4,7 @@ LDFLAGS = -m32
 NASM = nasm
 NASMFLAGS = -f elf32
 
-SRC = main.c root.c integral.c search_root_interval.c count.c test.c
+SRC = main.c root.c integral.c search_root_interval.c count.c test_root.c test_integral.c
 OBJ = $(SRC:.c=.o) f.o
 TARGET = main
 
