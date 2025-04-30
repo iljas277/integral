@@ -1,8 +1,14 @@
 #include <stdio.h>
+#include <math.h>
 typedef double (*func_t)(double);
 
 int *search_root_interval(func_t f, func_t g, int *coords){
     double start_value1 = (f(0) - g(0)), start_value2 = (f(0) - g(0));
+    if (fabs(start_value1) < 1e-15) {
+        coords[0] = 0;
+        coords[1] = 0;
+        return coords;
+    }
     int i = 1;
     while (1){
         double temp_value1 = f(i) - g(i);
