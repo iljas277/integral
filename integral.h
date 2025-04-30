@@ -1,5 +1,5 @@
 #ifndef INTEGRAL_H
 #define INTEGRAL_H
-typedef double (*func_t)(double);
+#include "main.h"
 double integral(func_t f, double a, double b, double eps2);
 #endif

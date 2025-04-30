@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-typedef double (*func_t)(double);
+#include "main.h"
 
 int *search_root_interval(func_t f, func_t g, int *coords){
     double start_value1 = (f(0) - g(0)), start_value2 = (f(0) - g(0));

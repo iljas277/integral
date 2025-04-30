@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-typedef double (*func_t)(double);
-
+#include "main.h"
 double root(func_t f, func_t g, func_t der_f, func_t der_g,  double a, double b, double eps1){
     int sign_der = (f(b) - g(b) >= f(a) - g(a)) ? 0 : 1;
     int sign_2der = (f(b) - g(b) + f(a) - g(a) >= 2 * (f((a + b) / 2) - g((a + b) / 2)))? 0 : 1;
