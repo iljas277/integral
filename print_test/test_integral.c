@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "root.h"
-#include "integral.h"
-#include "search_root_interval.h"
+#include "../root_functions/root.h"
+#include "../integral_functions/integral.h"
 #include <math.h>
 
 

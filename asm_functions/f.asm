@@ -1,6 +1,7 @@
 section .data
     three dq 3.0
     five dq 5.0
+    cw_round_down dw 0x077F
 section .text
 global f2
 f2:
@@ -33,20 +34,21 @@ f1:
     push ebp
     mov ebp, esp
     finit
+    fldcw [cw_round_down] 
     fld qword [ebp + 8] 
     fld qword[ebp + 8]
     frndint
-    fsubp st1              
+    fsubp st1         
     f2xm1  
     fld1              
     fadd st0, st1        
     fld qword[ebp + 8]
+    frndint
     fxch st1
     fscale  
     fld1             
     faddp st1, st0       
-    mov esp, ebp
-    pop ebp
+    leave
     ret
 global der_f2
 der_f2:
@@ -75,16 +77,18 @@ der_f1:
     push ebp
     mov ebp, esp
     finit
+    fldcw [cw_round_down] 
     fld qword [ebp + 8] 
     fld qword[ebp + 8]
     frndint
-    fsubp st1              
+    fsubp st1         
     f2xm1  
     fld1              
     fadd st0, st1        
     fld qword[ebp + 8]
+    frndint
     fxch st1
-    fscale                
+    fscale                  
     fldln2               
     fmulp st1, st0       
     leave

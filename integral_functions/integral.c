@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-#include "main.h"
+#include "../main.h"
 
 
 double integral(func_t f, double a, double b, double eps2){

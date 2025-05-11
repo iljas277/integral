@@ -4,7 +4,7 @@ LDFLAGS = -m32
 NASM = nasm
 NASMFLAGS = -f elf32
 
-SRC = main.c root.c integral.c search_root_interval.c count.c test_root.c test_integral.c
+SRC = main.c root_functions/root.c integral_functions/integral.c print_test/test_root.c print_test/test_integral.c print_test/print.c
 OBJ = $(SRC:.c=.o) f.o
 TARGET = main
 
@@ -18,7 +18,7 @@ $(TARGET): $(OBJ)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-f.o: f.asm
+f.o: asm_functions/f.asm
 	$(NASM) $(NASMFLAGS) $< -o $@
 
 clean:
